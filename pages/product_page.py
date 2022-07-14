@@ -18,6 +18,8 @@ class ProductPage(BasePage):
         self.find_product_price_on_page()
         add_to_basket_btn = self.browser.find_element(*ProductPageLocators.ADD_TO_BASKET_BTN)
         add_to_basket_btn.click()
+        self.solve_quiz_and_get_code()
+        self.should_product_is_added()
 
     def is_name_in_msgs(self, ):
         messages = self.browser.find_elements(*ProductPageLocators.ALL_MESSAGES)

@@ -1,5 +1,6 @@
 from .base_page import BasePage
 from .locators import LoginPageLocators
+import time
 
 login_url = "http://selenium1py.pythonanywhere.com/ru/accounts/login/"
 
@@ -19,3 +20,12 @@ class LoginPage(BasePage):
     def should_be_register_form(self):
         assert self.is_element_present(*LoginPageLocators.REGISTER_FORM), "Register form is not presented"
 
+    def register_new_user(self, email, password):
+        email_field = self.browser.find_element(*LoginPageLocators.REGISTER_EMAIL)
+        pass_field = self.browser.find_element(*LoginPageLocators.REGISTER_PASS)
+        pass_conf_field = self.browser.find_element(*LoginPageLocators.REGISTER_PASS_CONFIRM)
+        register_btn = self.browser.find_element(*LoginPageLocators.REGISTER_BTN)
+        email_field.send_keys(email)
+        pass_field.send_keys(password)
+        pass_conf_field.send_keys(password)
+        register_btn.click()

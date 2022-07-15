@@ -8,6 +8,16 @@ from .pages.login_page import LoginPage
 link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-shellcoders-handbook_209/?promo=newYear"
 
 class TestUserAddToBasketFromProductPage():
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        page = MainPage(browser, link)
+        page.open()
+        page.go_to_login_page()
+        login_page = LoginPage(browser, browser.current_url)
+        email = str(time.time()) + "@fakemail.org"
+        login_page.register_new_user(email, "oherwgiohrgijnj")
+        login_page.should_be_authorized_user()
+
     def test_user_cant_see_success_message(self, browser):
         page = ProductPage(browser, link)
         page.open()
